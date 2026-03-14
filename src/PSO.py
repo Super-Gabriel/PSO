@@ -12,4 +12,19 @@ class PSO:
         self.max_iter = max_iter
         self.gbest_position = None
         self.gbest_fitness = float('inf')
+    
+    def initialize_swarm(self, fitness_func):
+        for particle in self.particles:
+            particle.evaluate(fitness_func)
+            if particle.best_fitness < self.gbest_fitness:
+                self.gbest_fitness = particle.best_fitness
+                self.gbest_position = particle.best_position.copy()
+    
         
+    def optimize(self, fitness_func):
+        self.initialize_swarm(fitness_func)
+        for i in range(self.max_iter):
+            for particle in self.particles:
+                #todo
+                pass
+        return self.gbest_position, self.gbest_fitness

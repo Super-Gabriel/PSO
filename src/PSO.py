@@ -1,5 +1,4 @@
-import utils as u
-from particle import particle
+from .particle import particle
 
 class PSO:
     def __init__(self, n_particles:int, limits:list[tuple[float, float]], w:float, c1:float, c2:float, max_iter:int):
@@ -31,6 +30,8 @@ class PSO:
                 particle.update_position()
                 particle.evaluate(fitness_func)
                 if particle.best_fitness < self.gbest_fitness:
+                    print(f"Iteración {i}: Nuevo mejor fitness = {particle.best_fitness}")
+                    print(f"Iteración {i}: Nuevo mejor posición = {particle.best_position}")
                     self.gbest_fitness = particle.best_fitness
                     self.gbest_position = particle.best_position.copy()
         return self.gbest_position, self.gbest_fitness

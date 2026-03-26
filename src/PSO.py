@@ -30,7 +30,7 @@ class PSO:
                 particle.update_position()
                 particle.evaluate(fitness_func)
                 if particle.best_fitness < self.gbest_fitness:
-                    print(f"Iteración {i}: Nuevo mejor fitness = {particle.best_fitness}")
+                    print(f"\nIteración {i}: Nuevo mejor fitness = {particle.best_fitness}")
                     print(f"Iteración {i}: Nuevo mejor posición = {particle.best_position}")
                     self.gbest_fitness = particle.best_fitness
                     self.gbest_position = particle.best_position.copy()

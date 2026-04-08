@@ -1,9 +1,13 @@
+import joblib
 from src.PSO import PSO
 import joblib
 
+normalized = False
+
 model = joblib.load("models/random_forest.pkl")
 limits = joblib.load("models/limits_PSO.pkl")
-print(limits)
+if normalized:
+    scaler = joblib.load("models/scaler.pkl")
 
 # Función objetivo (esfera)
 target_func = lambda x: x[0]**2 + x[1]**2
@@ -25,5 +29,7 @@ if __name__ == "__main__":
     pso = PSO(n_particles, limits, w, c1, c2, max_iter)
     best_position, best_fitness = pso.optimize(fitness)
 
+    if normalized:
+        best_position = scaler.inverse_transform([best_position])[0]
     print("Mejor posición encontrada:", best_position)
     print("Mejor fitness encontrado:", best_fitness)

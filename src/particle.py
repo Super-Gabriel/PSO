@@ -5,7 +5,8 @@ class particle:
         self.limits = limits
         self.dim = len(limits)
         self.position = [random.uniform(min_i, max_i) for (min_i, max_i) in limits]
-        self.velocity = [random.uniform(-1,1) for _ in range(self.dim)]
+        # Iniciar la velocidad proporcional al tamaño del espacio de búsqueda (ej. 10%)
+        self.velocity = [random.uniform(-0.1 * (max_i - min_i), 0.1 * (max_i - min_i)) for (min_i, max_i) in limits]
         
         self.best_position = self.position.copy()
         self.best_fitness = float('inf')
@@ -36,8 +37,10 @@ class particle:
             calculated_position = self.position[i] + self.velocity[i]
             if calculated_position < self.limits[i][0]:
                 calculated_position = self.limits[i][0]
+                self.velocity[i] = 0.0 # Resetear velocidad si choca con el límite
             elif calculated_position > self.limits[i][1]:
                 calculated_position = self.limits[i][1]
+                self.velocity[i] = 0.0 # Resetear velocidad si choca con el límite
             new_position.append(calculated_position)
         self.position = new_position
 

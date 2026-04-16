@@ -1,16 +1,13 @@
 import joblib
 from src.PSO import PSO
-import joblib
 
-normalized = False
+normalized = True
 
 model = joblib.load("models/random_forest.pkl")
 limits = joblib.load("models/limits_PSO.pkl")
 if normalized:
     scaler = joblib.load("models/scaler.pkl")
 
-# Función objetivo (esfera)
-target_func = lambda x: x[0]**2 + x[1]**2
 
 def fitness(descriptors):
     pred = model.predict([descriptors])[0]
